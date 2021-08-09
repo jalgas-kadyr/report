@@ -1,0 +1,36 @@
+.box {
+    margin-top: 40px;
+    padding: 5px;
+    zoom: 0.75;
+    border: black 2px solid;
+    border-radius: 10px;
+}
+
+tr {
+    align-items: center;
+}
+
+blockquote {
+    margin-left: 10px;
+}
+
+td {
+    text-align: right;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.description {
+    width: 417px;
+}
+
+.zap td {
+    text-align: center;
+
+}
+.table{
+    overflow-y:hidden;
+}

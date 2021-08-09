@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рапорта</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {#    <link rel="stylesheet" href="{% static 'master.css' %}">#}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#"><h4>myReport</h4></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/report">Суточный рапорт</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/reports">Рапорта</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/master/{{ master.username }}/balance">Баланс времени</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/master/{{ master.username }}/consumptions">Расходы </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/master/{{ master.username }}/analytics">Аналитика</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/applications">Заявки</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1 style="margin-top: 40px">Все рапорта бурового установки</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Мастер</th>
+            <th scope="col">План</th>
+            <th scope="col">Факт</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td scope="row">{{ report.number }}</td>
+                <td>{{ report.date }}</td>
+                <td>{{ master.name }} {{ master.surname }}</td>
+                <td>{{ report.fact }}</td>
+                <td>{{ report.fact }}</td>
+                <td>
+                    <form action="{% url 'viewreport' report.number %}">
+                        <button type="submit" class="btn btn-primary">Смотреть</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

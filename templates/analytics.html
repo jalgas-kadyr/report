@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Окно мастера</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'master.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#"><h4>myReport</h4></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/report">Суточный рапорт</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/reports">Рапорта</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/balance">Баланс времени</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/consumptions">Расходы </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/analytics">Аналитика</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="http://127.0.0.1:8000/master/{{ master.username }}/applications">Заявки</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="content container">
+    <div class="box" style="width: 490px">
+        <h1>Данные скважины</h1>
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <th scope="row">Название</th>
+                <td>{{ well.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Заказчик</th>
+                <td>{{ well.customer }}</td>
+            </tr>
+            <tr>
+                <th>Комплекс</th>
+                <td>{{ well.complex }}</td>
+            </tr>
+            <tr>
+                <th scope="row">План</th>
+                <td colspan="2">{{ well.plan }}</td>
+            </tr>
+            <tr>
+                <th>Мастер</th>
+                <td>{{ well.master }}</td>
+            </tr>
+            <tr>
+                <th>Начальник</th>
+                <td>{{ well.chief }}</td>
+            </tr>
+            <tr>
+                <th>Супервайзер</th>
+                <td>{{ well.supervisor }}</td>
+            </tr>
+            <tr>
+                <th>Корндинаты-Ширина</th>
+                <td>{{ well.xcor }}</td>
+            </tr>
+            <tr>
+                <th>Кординаты-Долгота</th>
+                <td>{{ well.ycor }}</td>
+            </tr>
+            <tr>
+                <th>Цель</th>
+                <td>{{ well.appointment }}</td>
+            </tr>
+            <tr>
+                <th>Тип</th>
+                <td>{{ well.type }}</td>
+            </tr>
+            <tr>
+                <th>Дата начала подготовки <br>к бурению</th>
+                <td>{{ well.preparation_begin }}</td>
+            </tr>
+            <tr>
+                <th>Дата начала бурение</th>
+                <td>{{ well.begin_date }}</td>
+            </tr>
+            <tr>
+                <th>Дата планиуроемого <br> окончание бурение</th>
+                <td>{{ well.planned_end }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <div class="content" style="flex-wrap: wrap">
+            <div class="box" style="width: 50%">
+                <h1>План факт</h1>
+                <table class="table">
+                    <tr>
+                        <th>План текущий</th>
+                        <td>{{ plan_fact.plan }}</td>
+                    </tr>
+                    <tr>
+                        <th>Факт текущий</th>
+                        <td>{{ plan_fact.fact }}</td>
+                    </tr>
+                </table>
+                <table class="table prognoz">
+                    <tr>
+                        <td>Разница от плана</td>
+                        <td>{{ plan_fact.difference }}</td>
+                    </tr>
+                    <tr>
+                        <td>Прогнозирумеая дата окончание бурение</td>
+                        <td>{{ plan_fact.prognosis }}</td>
+                    </tr>
+                    <tr>
+                        <td>Механическая скорость</td>
+                        <td>{{ plan_fact.mechanic_speed }}</td>
+                    </tr>
+                    <tr>
+                        <td>Коммерческая скорость</td>
+                        <td>{{ plan_fact.commerce_speed }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="display: inline; text-align: center;">
+                <div class="circle">{{ plan_fact.by_percent }}</div>
+                <h4>Пробурено {{ plan_fact.by_percent }}%</h4>
+            </div>
+            <div class="box">
+                <h4>Таблица непройзводительного времени</h4>
+                <div class="scroll-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Время начала</th>
+                            <th>Время конца</th>
+                            <th>Причина</th>
+                        </tr>
+                        </thead>
+                    </table>
+                    <div class="scroll-table-body">
+                        <table>
+                            <tbody>
+                            {% for operation in operations %}
+                            <tr>
+                                <td>
+                                    <div>{{ operation.date }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ operation.begin_time }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ operation.end_time }}</div>
+                                </td>
+                                <td>
+                                    <div>{{ operation.notes }}</div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .prognoz td{
+        text-align: left;
+    }
+    .box {
+        zoom: 0.9;
+    }
+
+    .circle {
+        display: block;
+        float: left;
+        zoom: 2;
+        margin-top: 20px;
+    }
+    circle {
+      fill: rgba(0,0,0,0);
+      stroke: #eee;
+      stroke-width: 25;
+      stroke-dasharray: 408px 408px;
+    }
+    circle:nth-child(2n) {
+      fill: rgba(0,0,0,0);
+      stroke: #0D6EFD;
+      stroke-width: 30;
+    }
+
+    .scroll-table-body {
+        height: 350px;
+        overflow-x: auto;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .scroll-table table {
+        width: 100%;
+        table-layout: fixed;
+        border: none;
+    }
+
+    .scroll-table thead th {
+        font-weight: bold;
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        background: #d8d8d8;
+        font-size: 14px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+
+    .scroll-table tbody td {
+        text-align: left;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        padding: 10px 15px;
+        font-size: 14px;
+        vertical-align: top;
+    }
+
+    .scroll-table tbody tr:nth-child(even) {
+        background: #f3f3f3;
+    }
+
+    /* Стили для скролла */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    body{
+        padding-bottom: 20px;
+    }
+</style>
+ <script type="text/javascript">
+var Circle = function(sel){
+    var circles = document.querySelectorAll(sel);
+    [].forEach.call(circles,function(el){
+        var valEl = parseFloat(el.innerHTML);
+        valEl = valEl*408/100;
+        el.innerHTML = '<svg width="160" height="160"><circle transform="rotate(-90)" r="65" cx="-80" cy="80" /><circle transform="rotate(-90)" style="stroke-dasharray:'+valEl+'px 408px;" r="65" cx="-80" cy="80" /></svg>';
+
+    });
+};
+Circle('.circle');
+ </script>
+</body>
+</html>
